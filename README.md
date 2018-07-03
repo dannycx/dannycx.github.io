@@ -15,3 +15,10 @@
 - LinkedList可以当做栈和队列来使用，LinkedList实现了Deque接口，Deque接口又继承自Queue接口
 #### SynchronizedList
 - 继承自SynchronizedCollection，使用装饰着模式为List加了锁，从而使List同步安全，代替Vector和Stack。
+
+
+
+
+
+
+[Link](https://github.com/dannycx/dannycx.github.io/edit/master/源码解析.md)
