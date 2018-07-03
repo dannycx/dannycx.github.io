@@ -22,3 +22,7 @@
 
 
 [Link](https://github.com/dannycx/dcxing111.github.io/blob/master/activity%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE)
+
+
+
+[Activity生命周期](https://github.com/dannycx/knowledge/ActivityLifecycler)
