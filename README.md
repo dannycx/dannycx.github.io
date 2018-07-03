@@ -25,4 +25,4 @@
 
 
 
-[Activity生命周期](https://github.com/dannycx/knowledge/ActivityLifecycler)
+[Activity生命周期](https://github.com/dannycx/knowledge/blob/master/ActivityLifecycle.md)
