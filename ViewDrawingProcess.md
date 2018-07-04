@@ -3,12 +3,12 @@
 ## view绘制流程
 - 绘制流程从ViewRoot的performTraversals方法开始，经过measure测量view宽高，layout确定view在父布局位置，draw负责将view绘制在屏幕上
 ```markdown
- View 绘制流程
-1. 绘制背景
-2. 绘制内容
-3. 绘制 children
-4. 如果有需要，绘制渐隐(fading) 效果
-5. 绘制装饰物 （scrollbars） 
+View 绘制流程
+ 1. 绘制背景
+ 2. 绘制内容
+ 3. 绘制 children
+ 4. 如果有需要，绘制渐隐(fading) 效果
+ 5. 绘制装饰物 （scrollbars） 
 ```
 
 ## MeasureSpec
@@ -137,11 +137,11 @@ float yVelocity = mVelocityTracker.getYVelocity();
 - 手指向上滑动，内容将向下显示，这时 mScrollY < 0。
 - 手指向下滑动，内容将向上显示，这时 mScrollY > 0.
 ```markdown
-View 滑动的关键属性 mScrollX 和 mScrollY。
-系统处理滑动事件在 onDraw(Canvas) 之前，对 canvas 平移，canvas.translate(mLeft-mScrollX,mRight-mScrollY)。将坐标系从父组件转换到子 view 中。
-处理 View 的滑动事件有 scrollBy() 和 scrollTo()，前一种是增量式（先在原基础上加偏移量，再调用scrollTo()方法），后一种直接到位。
-实现平滑滚动的效果，除了 Scroller，还可以通过属性动画完成，还是针对 mScrollX 或者 mScrollY 的变化重绘。
-View 滚动的是内容，对于一个父组件而言，滚动的就是子view。所以想移动一个 View，就应该调用它的父组件的 scrollBy() 或者 scrollTo()。
-Scroller提供了滚动时改变相应数值，重写自定义View的computeScroll()，获取mCurrentX和mCurrentY，或根据自己的规则调用scrollTo()，实现平稳滚动效果。
-Scroller 提供快速滚动功能，在自定义 View 的 onTouchEvent()中获取相应方向的初始速度，调用 Scroller 的 startFling()。
+ 1.View 滑动的关键属性 mScrollX 和 mScrollY。
+ 2.系统处理滑动事件在 onDraw(Canvas) 之前，对 canvas 平移，canvas.translate(mLeft-mScrollX,mRight-mScrollY)。将坐标系从父组件转换到子 view 中。
+ 3.处理 View 的滑动事件有 scrollBy() 和 scrollTo()，前一种是增量式（先在原基础上加偏移量，再调用scrollTo()方法），后一种直接到位。
+ 4.实现平滑滚动的效果，除了 Scroller，还可以通过属性动画完成，还是针对 mScrollX 或者 mScrollY 的变化重绘。
+ 5.View 滚动的是内容，对于一个父组件而言，滚动的就是子view。所以想移动一个 View，就应该调用它的父组件的 scrollBy() 或者 scrollTo()。
+ 6.Scroller提供了滚动时改变相应数值，重写自定义View的computeScroll()，获取mCurrentX和mCurrentY，或根据自己的规则调用scrollTo()，实现平稳滚动效果。
+ 7.Scroller 提供快速滚动功能，在自定义 View 的 onTouchEvent()中获取相应方向的初始速度，调用 Scroller 的 startFling()。
 ```
