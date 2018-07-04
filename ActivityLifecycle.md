@@ -42,7 +42,7 @@ if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
 }
 ## 生命周期执行情况
 
-
+```markdown
  * 情况一:
  *    开启activity:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy,再打开:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
  * 情况二:
