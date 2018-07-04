@@ -40,12 +40,8 @@ if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
 }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
 竖
 }
-##
-/**
- * onStart:
- * onResume:
- * onPause:
- * onStop:
+## 生命周期执行情况
+
  *
  * 情况一:
  *      开启activity:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy,再打开:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
