@@ -42,25 +42,23 @@ if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
 }
 ## 生命周期执行情况
 
- *
+
  * 情况一:
      开启activity:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy,再打开:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
  * 情况二:
      onCreate,onStart,onResume中直接startActivity: A:onCreate-onStart-onResume-onPause,B:onCreate-onStart-onResume,A:onStop
- *      后退键:B:onPause,A:onRestart-onStart-onResume-onPause,B:onCreate-onStart-onResume,B:onStop-onDestroy,A:onStop
+      后退键:B:onPause,A:onRestart-onStart-onResume-onPause,B:onCreate-onStart-onResume,B:onStop-onDestroy,A:onStop
  * 情况三:
       onCreate中直接startActivity,finish: A:onCreate,B:onCreate-onStart-onResume,A:onDestroy
- *      后退键:B:onPause-onStop-onDestroy
+     后退键:B:onPause-onStop-onDestroy
  * 情况四:
     onCreate,onStart,onResume中直接startActivity(对话框activity): A:onCreate-onStart-onResume-onPause,B:onCreate-onStart-onResume
- *      后退键:B:onPause,A:onResume,B:onStop-onDestroy
+     后退键:B:onPause,A:onResume,B:onStop-onDestroy
  * 情况五:
       开启activity:onCreate-onStart-onResume,home:onPause-onStop,再打开:onRestart-onStart-onResume,后退键:onPause-onStop-onDestroy
  * 情况六:
- *      开启activity:onCreate-onStart-onResume,横竖屏切换:onPause-onSaveInstanceState(activity异常终止才调用)-onStop-onDestroy-onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
- *
- *
- *
+     开启activity:onCreate-onStart-onResume,横竖屏切换:onPause-onSaveInstanceState(activity异常终止才调用)-onStop-onDestroy-onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
+
  * 屏幕旋转不重新创建:   待验证
- *      清单文件,activity标签下-android:configChanges="orientation"
- */
+       清单文件,activity标签下-android:configChanges="orientation"
+
