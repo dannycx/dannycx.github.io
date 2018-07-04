@@ -3,13 +3,12 @@
 ## view绘制流程
 - 绘制流程从ViewRoot的performTraversals方法开始，经过measure测量view宽高，layout确定view在父布局位置，draw负责将view绘制在屏幕上
 ```markdown
-绘制遍历执行必须执行的几个绘制步骤
- 1.绘制背景
- 2.如有必要，保存画布的图层以准备褪色
- 3.绘制视图的内容
- 4.画孩子
- 5.如有必要，绘制淡化边缘并恢复图层
- 6.绘制装饰（例如滚动条）
+ View 绘制流程
+1. 绘制背景
+2. 绘制内容
+3. 绘制 children
+4. 如果有需要，绘制渐隐(fading) 效果
+5. 绘制装饰物 （scrollbars） 
 ```
 
 ## MeasureSpec
@@ -31,6 +30,53 @@
 
 - scrollBy() 和 scrollTo()，而归根到底，如果要设置 mScrollX 或者 mScrollY，最终调用的还是 scrollTo()
 
+### mScrollX 与 mScrollY 相关。
+###### 如果你想翻看前面或者是上面的内容，mScrollX 和 mScrollY 取值为正数，如果想翻看后面或者是下面的内容，mScrollX 和 mScrollY 取值为负。
+```markdown
+手指向左滑动，内容将向右显示，这时 mScrollX > 0。
+手指向右滑动，内容将向左显示，这时 mScrollX < 0.
+手指向上滑动，内容将向下显示，这时 mScrollY < 0。
+手指向下滑动，内容将向上显示，这时 mScrollY > 0.
+```
+- mScrollX 为负数时，内容向右滑，反之向左滑。
+- mScrollY 为负数时，内容向下滑，反之向上滑。
+
 ### scrollBy() 和 scrollTo() 的区别
 - scrollBy() 间接调用 scrollTo(),只是它是在当前滚动的基础上再进行偏移。
-### mScrollX 与 mScrollY 相关。
+- computeScrollOffset() 方法会返回当前动画的状态，true 代表动画continue，false 代表动画over。
+- 若动画没有结束，每次都会调用 computeScrollOffset() 方法，它会更新 mCurrentX 和 mCurrentY 的数值。
+- 当调用 Scroller.startScroll() 时，调用了 invalidate() 方法,computeScroll()就会执行
+```java
+public void computeScroll() {
+    super.computeScroll();
+    if (mScroller.computeScrollOffset()) {
+        Log.d(TAG, "滚动未结束。");
+        scrollTo(mScroller.getCurrX(),mScroller.getCurrY());
+        if (mScroller.getCurrX() == getScrollX() && mScroller.getCurrY() == getScrollY() ) {//避免重复请求
+            postInvalidate();//一直调用，类似消息机制
+        }
+    } else {
+        Log.d(TAG, "滚动结束！");
+    }
+}
+```
+## Scroller使用
+- 创建
+-- 方式一：
+```java
+Scroller mScroller = new Scroller(context);
+```
+-- 方式二：
+```java
+动画插值器
+AccelerateDecelerateInterpolator  //先加速后减速
+AccelerateInterpolator  //加速
+AnticipateInterpolator  //运动时先向反方向运动一定距离，再向正方向目标运动
+BounceInterpolator  //模拟弹球轨迹
+DecelerateInterpolator  // 减速
+LinearInterpolator  //匀速
+
+AccelerateInterpolator interpolator = new AccelerateInterpolator(1.2f);
+Scroller mScroller = new Scroller(context,interpolator);
+```
+
