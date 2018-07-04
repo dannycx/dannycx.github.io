@@ -20,7 +20,8 @@
 - ScrollView：滚动针对的只是view的显示内容进行了位移。
 - RecyclerView：滚动针对的是它的子View。RecyclerView本身尺寸和位置并没有发生变化，只是子View 的显示区域进行了位移。
 
-scrollBy() 和 scrollTo()，而归根到底，如果要设置 mScrollX 或者 mScrollY，最终调用的还是 scrollTo()
-scrollBy() 和 scrollTo() 的区别
+- scrollBy() 和 scrollTo()，而归根到底，如果要设置 mScrollX 或者 mScrollY，最终调用的还是 scrollTo()
 
-scrollBy() 间接调用 scrollTo(),只是它是在当前滚动的基础上再进行偏移。这个下面的内容我会再细讲。我们接着说 mScrollX 与 mScrollY 相关。
+### scrollBy() 和 scrollTo() 的区别
+- scrollBy() 间接调用 scrollTo(),只是它是在当前滚动的基础上再进行偏移。
+### mScrollX 与 mScrollY 相关。
