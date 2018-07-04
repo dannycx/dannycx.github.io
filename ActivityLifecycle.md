@@ -1,24 +1,26 @@
 # Activity生命周期
 
-状态：激活状态（位于当前任务栈顶）、暂停状态（失去焦点，但仍可见）、停止状态(被另一个activity完全覆盖)
-## onCreate()设置布局 控件初始化
-
-## onStart()注册一些监听 内容观察者,后台,可见,不可获得焦点
-
+`` 状态：激活状态（位于当前任务栈顶）、暂停状态（失去焦点，但仍可见）、停止状态(被另一个activity完全覆盖)
+## onCreate()
+-设置布局 控件初始化
+## onStart()
+- 注册一些监听 内容观察者,后台,可见,不可获得焦点
 ## onReStart()
+## onResume()
+- 再次对数据进行查询,前台,可见,可获得焦点
 
-## onResume()再次对数据进行查询,前台,可见,可获得焦点
+## onPause()
+- 数据临时保存,后台,开启新的activity,会先执行完该方法,才去执行onResume
 
-## onPause()数据临时保存,后台,开启新的activity,会先执行完该方法,才去执行onResume
+## onStop()
+- 取消监听,不可见
 
-## onStop()取消监听,不可见
-
-## onDestroy()对资源进行回收 cursor关闭cursor.close();   bitmap进行回收 bitmap.recycle();
-
-
-
-onSaveInstanceState(Bundle outState)内存不足时调用，保存数据  outState.putXxx(key,value)
-onRestoreInstansceState(Bundle saveInstanceState)   恢复数据  saveInstanceState.getXxx(key)
+## onDestroy()
+- 对资源进行回收 cursor关闭cursor.close();   bitmap进行回收 bitmap.recycle();
+## onSaveInstanceState(Bundle outState)
+- 内存不足时调用，保存数据  outState.putXxx(key,value)
+## onRestoreInstansceState(Bundle saveInstanceState) 
+- 恢复数据  saveInstanceState.getXxx(key)
 
 
 
@@ -66,6 +68,3 @@ if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
  * 屏幕旋转不重新创建:   待验证
  *      清单文件,activity标签下-android:configChanges="orientation"
  */
-
-任务栈：
-进程：
