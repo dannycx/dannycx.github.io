@@ -11,4 +11,5 @@
 - EXACTLY:精确大小，指定一个值和MATCH_PARENT,都是该模式
 - AT_MOST:父容器指定一个大小，子view不能超出该值，WRAP_CONTENT就是该模式
 
-[view测量](https://github.com/dannycx/knowledge/blob/master/image/viewMeasure.png)
+
+![](https://github.com/dannycx/knowledge/blob/master/image/viewMeasure.png) 
