@@ -30,11 +30,11 @@
 -当捕获后调用activity的onConfigurationChanged()方法。
 
 > onConfigurationChanged(Configuration newConfig){
->>  if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-  >>  //横
-  >>}else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT)
->> //竖
->}
+>>  if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){//横
+>>  
+>>}else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){//竖
+>>}
+> }
 
 -
 -
