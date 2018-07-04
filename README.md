@@ -16,9 +16,8 @@
 #### SynchronizedList
 - 继承自SynchronizedCollection，使用装饰着模式为List加了锁，从而使List同步安全，代替Vector和Stack。
 
-## java类加载过程
-- Student student = new Student();
-- 1.
+## java类加载过程: Student student = new Student();
+- 
 
 
 
