@@ -29,3 +29,4 @@
 
 [github代码上传](https://github.com/dannycx/knowledge/blob/master/github.md)
 
+[View绘制](https://github.com/dannycx/knowledge/edit/master/ViewDrawingProcess.md)
