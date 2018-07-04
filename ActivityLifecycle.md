@@ -29,6 +29,7 @@
 -不希望重新创建activity实例：configChanges="orientation|keyboardHidden"指定要捕获“屏幕方向”，“键盘显示隐藏”变化，
 -当捕获后调用activity的onConfigurationChanged()方法。
 
+```java
 onConfigurationChanged(Configuration newConfig){
   if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
     //横
@@ -36,7 +37,7 @@ onConfigurationChanged(Configuration newConfig){
     //竖
   }
 }
-
+```
 -
 -
 
