@@ -24,22 +24,18 @@
 
 
 
--完整生命周期：create-start-resume可视
-后退：pause-stop-detroy
-打开一个activity：onPause-onstop
-作为dialog在清单文件配置theme：@android：style/
+### 作为dialog的activity在清单文件配置theme：@android：style/
 
-
-
-不希望重新创建activity实例：configChanges="orientation|keyboardHidden"指定要捕获“屏幕方向”，“键盘显示隐藏”变化，
-当捕获后调用activity的onConfigurationChanged()方法。
-##
+-不希望重新创建activity实例：configChanges="orientation|keyboardHidden"指定要捕获“屏幕方向”，“键盘显示隐藏”变化，
+-当捕获后调用activity的onConfigurationChanged()方法。
+```markdown
 onConfigurationChanged(Configuration newConfig){
-if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-横
-}else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
-竖
+  if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+    //横
+  }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+    //竖
 }
+
 ## 生命周期执行情况
 
 ```markdown
