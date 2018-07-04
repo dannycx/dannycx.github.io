@@ -32,12 +32,6 @@
 
 ### mScrollX 与 mScrollY 相关。
 ###### 如果你想翻看前面或者是上面的内容，mScrollX 和 mScrollY 取值为正数，如果想翻看后面或者是下面的内容，mScrollX 和 mScrollY 取值为负。
-```markdown
-手指向左滑动，内容将向右显示，这时 mScrollX > 0。
-手指向右滑动，内容将向左显示，这时 mScrollX < 0.
-手指向上滑动，内容将向下显示，这时 mScrollY < 0。
-手指向下滑动，内容将向上显示，这时 mScrollY > 0.
-```
 - mScrollX 为负数时，内容向右滑，反之向左滑。
 - mScrollY 为负数时，内容向下滑，反之向上滑。
 
@@ -46,11 +40,25 @@
 - computeScrollOffset() 方法会返回当前动画的状态，true 代表动画continue，false 代表动画over。
 - 若动画没有结束，每次都会调用 computeScrollOffset() 方法，它会更新 mCurrentX 和 mCurrentY 的数值。
 - 当调用 Scroller.startScroll() 时，调用了 invalidate() 方法,computeScroll()就会执行
+- 所以运行 Scroller 的一般方法是在 View 中调用的地方编写如下代码
 ```java
+public void startScroll(){
+    //强制结束 mScroller 未完成的动画
+    mScroller.forceFinished(true);
+    int startX = getScrollX();
+    int startY = getScrollY();
+    // 调用 startScroll() 方法，其中的参数由开发者自己决定
+    mScroller.startScroll(startX,startY,startX+dx,startY+dy,1000);
+    // 让 View 重绘
+    invalidate();
+}
+
 public void computeScroll() {
     super.computeScroll();
     if (mScroller.computeScrollOffset()) {
         Log.d(TAG, "滚动未结束。");
+        // 通过获取 Scroller 中 mCurrentX、mCurrentY 的值，直接设置为 mScrollX、mScrollY
+        // 在实际开发中，mCurrentX、mCurrentY 与 mScrollX、mScrollY 的关系由自己定义
         scrollTo(mScroller.getCurrX(),mScroller.getCurrY());
         if (mScroller.getCurrX() == getScrollX() && mScroller.getCurrY() == getScrollY() ) {//避免重复请求
             postInvalidate();//一直调用，类似消息机制
@@ -66,9 +74,7 @@ public void computeScroll() {
 ```java
 方式一：
 Scroller mScroller = new Scroller(context);
-```
 
-```java
 方式二：指定动画插值器
 AccelerateDecelerateInterpolator  //先加速后减速
 AccelerateInterpolator  //加速
@@ -80,4 +86,62 @@ LinearInterpolator  //匀速
 AccelerateInterpolator interpolator = new AccelerateInterpolator(1.2f);
 Scroller mScroller = new Scroller(context,interpolator);
 ```
+- 启动动画
+```java
+方式一：最后调用方法二，默认时间为250 ms
+public void startScroll(int startX, int startY, int dx, int dy) {}
 
+方式二：
+public void startScroll(int startX, int startY, int dx, int dy,int duration) {}
+```
+
+- Scroller的快速滚动功能 fling
+```java
+   /**
+     * 快速滚动
+     * @param startX 开始滚动时 X 坐标
+     * @param startY 开始滚动时 Y 坐标
+     * @param velocityX 开始滚动时 X 方向的初始速度
+     * @param velocityY 开始滚动时 Y 方向的初始速度
+     * @param minX 滚动过程，X 坐标不能小于这个数值
+     * @param maxX 滚动过程，X 坐标不能大于这个值
+     * @param minY 滚动过程，Y 坐标不能小于这个数值
+     * @param maxY 滚动过程，Y 坐标不能大于这个数值
+     */
+    public void fling(int startX, int startY, int velocityX, int velocityY,
+                      int minX, int maxX, int minY, int maxY) {}
+```
+- 快速滚动功能需要配合VelocityTracker（速度追踪器）使用，
+```java
+//1. 创建VelocityTracker
+VelocityTracker mVelocityTracker = VelocityTracker.obtain();
+
+//2. 添加MotionEvent 事件
+mVelocityTracker.addMovement(event);
+
+//3. 计算 x、y 轴的速度,
+//第一个参数表明时间单位，1000 代表 1000 ms 也就是 1 s，计算 1 s 内滚动多少个像素,后面表示最大速度
+mVelocityTracker.computeCurrentVelocity(1000,600.0f);
+
+//4. 获取速度
+float xVelocity = mVelocityTracker.getXVelocity();
+float yVelocity = mVelocityTracker.getYVelocity();
+
+//之后的事情根据获取的速度值做处理
+```
+
+## 小结
+```markdown
+View 滑动的主要依赖 mScrollX 和 mScrollY 属性。
+系统处理滑动事件时在 onDraw(Canvas canvas) 方法之前，对 canvas 对象进行平移，canvas.translate(mLeft-mScrollX,mRight-mScrollY)。目的是将坐标系从父组件转换到子 view 中。
+处理一个 View 的滑动事件有 scrollBy() 和 scrollTo() 两种方式，前一种是增量式（先在原基础上加偏移量，再调用scrollTo()方法），后一种直接到位。
+要实现平滑滚动的效果，不借助 Scroller ，通过属性动画也可以完成，原因还是针对 mScrollX 或者 mScrollY 的变化引起的重绘。
+View 滚动的区域是内容，而对于一个父组件而言，它的内容就是子view。所以想移动一个 View，那么就应该调用它的父组件的 scrollBy() 或者 scrollTo() 方法。
+Scroller 只是模拟提供了滚动时相应数值的变化，复写自定义 View 中的 computeScroll() 方法，在这里获取 Scroller 中的 mCurrentX 和 mCurrentY，根据自己的规则调用 scrollTo() 方法，就可以达到平稳滚动的效果。
+Scroller 提供快速滚动的功能，需要在自定义 View 的 onTouchEvent() 方法中获取相应方向的初始速度，然后调用 Scroller 的 startFling() 方法。
+最重要的一点就是要理解 mScrollX、mScrollY 在 Canvas 坐标中的意义，要区分手指滑动方向、内容滑动方向和 mScrollX、mScrollY 数值的关系。
+    手指向左滑动，内容将向右显示，这时 mScrollX > 0。
+    手指向右滑动，内容将向左显示，这时 mScrollX < 0.
+    手指向上滑动，内容将向下显示，这时 mScrollY < 0。
+    手指向下滑动，内容将向上显示，这时 mScrollY > 0.
+```
