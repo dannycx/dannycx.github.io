@@ -62,11 +62,11 @@ public void computeScroll() {
 ```
 ## Scroller使用
 - 创建
--- 方式一：
+** 方式一：
 ```java
 Scroller mScroller = new Scroller(context);
 ```
--- 方式二：
+方式二：
 ```java
 动画插值器
 AccelerateDecelerateInterpolator  //先加速后减速
