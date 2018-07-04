@@ -36,7 +36,8 @@ onConfigurationChanged(Configuration newConfig){
     //竖
 }
 
-```markdown
+-
+-
 
 ## 生命周期执行情况
 
