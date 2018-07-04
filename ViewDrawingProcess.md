@@ -2,6 +2,15 @@
 
 ## view绘制流程
 - 绘制流程从ViewRoot的performTraversals方法开始，经过measure测量view宽高，layout确定view在父布局位置，draw负责将view绘制在屏幕上
+```markdown
+绘制遍历执行必须执行的几个绘制步骤
+ 1.绘制背景
+ 2.如有必要，保存画布的图层以准备褪色
+ 3.绘制视图的内容
+ 4.画孩子
+ 5.如有必要，绘制淡化边缘并恢复图层
+ 6.绘制装饰（例如滚动条）
+```
 
 ## MeasureSpec
 
