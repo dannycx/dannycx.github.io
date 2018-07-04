@@ -12,10 +12,10 @@ linux系统下：用户home目录，
 - 生成后将该密钥设置到github，点击github中的settings，然后打开SSH keys菜单， 点击Add SSH key新增密钥，将你的密钥拷贝过去，定义一个标题即可。
 ## 3.本地建立一个文件夹用来存放从github上clone下的项目
 - git init：初始化本地仓库（可有可无）
-- 克隆项目：git clone https://github.com/dannycx/knowledge.git（地址可去github复制）
+- 克隆项目：git clone github项目地址（可去github复制）
 - git add file：
 - git commit -m "info" :提交代码
-- 关联远程仓库：git remote add origin https://github.com/dannycx/knowledge.git
+- 关联远程仓库：git remote add origin github项目地址
 - 代码合并【注：pull=fetch+merge]：git pull --rebase origin master
 - 上传代码：git push -u origin master。
 
