@@ -131,6 +131,11 @@ float yVelocity = mVelocityTracker.getYVelocity();
 ```
 
 ## 小结
+###### 理解手指滑动方向、内容滑动方向和 mScrollX、mScrollY 数值的关系。
+- 手指向左滑动，内容将向右显示，这时 mScrollX > 0。
+- 手指向右滑动，内容将向左显示，这时 mScrollX < 0.
+- 手指向上滑动，内容将向下显示，这时 mScrollY < 0。
+- 手指向下滑动，内容将向上显示，这时 mScrollY > 0.
 ```markdown
 View 滑动的主要依赖 mScrollX 和 mScrollY 属性。
 系统处理滑动事件时在 onDraw(Canvas canvas) 方法之前，对 canvas 对象进行平移，canvas.translate(mLeft-mScrollX,mRight-mScrollY)。目的是将坐标系从父组件转换到子 view 中。
@@ -139,9 +144,4 @@ View 滑动的主要依赖 mScrollX 和 mScrollY 属性。
 View 滚动的区域是内容，而对于一个父组件而言，它的内容就是子view。所以想移动一个 View，那么就应该调用它的父组件的 scrollBy() 或者 scrollTo() 方法。
 Scroller 只是模拟提供了滚动时相应数值的变化，复写自定义 View 中的 computeScroll() 方法，在这里获取 Scroller 中的 mCurrentX 和 mCurrentY，根据自己的规则调用 scrollTo() 方法，就可以达到平稳滚动的效果。
 Scroller 提供快速滚动的功能，需要在自定义 View 的 onTouchEvent() 方法中获取相应方向的初始速度，然后调用 Scroller 的 startFling() 方法。
-最重要的一点就是要理解 mScrollX、mScrollY 在 Canvas 坐标中的意义，要区分手指滑动方向、内容滑动方向和 mScrollX、mScrollY 数值的关系。
-    手指向左滑动，内容将向右显示，这时 mScrollX > 0。
-    手指向右滑动，内容将向左显示，这时 mScrollX < 0.
-    手指向上滑动，内容将向下显示，这时 mScrollY < 0。
-    手指向下滑动，内容将向上显示，这时 mScrollY > 0.
 ```
