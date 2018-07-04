@@ -47,7 +47,7 @@ if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
  *    开启activity:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy,再打开:onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
  * 情况二:
  *    onCreate,onStart,onResume中直接startActivity: A:onCreate-onStart-onResume-onPause,B:onCreate-onStart-onResume,A:onStop
-      后退键:B:onPause,A:onRestart-onStart-onResume-onPause,B:onCreate-onStart-onResume,B:onStop-onDestroy,A:onStop
+  *    后退键:B:onPause,A:onRestart-onStart-onResume-onPause,B:onCreate-onStart-onResume,B:onStop-onDestroy,A:onStop
  * 情况三:
   *    onCreate中直接startActivity,finish: A:onCreate,B:onCreate-onStart-onResume,A:onDestroy
      后退键:B:onPause-onStop-onDestroy
