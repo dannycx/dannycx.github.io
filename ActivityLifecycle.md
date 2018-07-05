@@ -23,14 +23,12 @@
 - 恢复数据  saveInstanceState.getXxx(key)
 
 
-
-### 作为dialog的activity在清单文件配置theme：@android：style/
-
--不希望重新创建activity实例：configChanges="orientation|keyboardHidden"指定要捕获“屏幕方向”，“键盘显示隐藏”变化，
--当捕获后调用activity的onConfigurationChanged()方法。
-
+## Activity小知识
+- 作为dialog的activity在清单文件配置theme：@android：style/
+- 不希望重新创建activity实例，在清单文件配置configChanges="orientation|keyboardHidden"，重写activity的onConfigurationChanged()方法。
+- 判断横竖屏方向
 ```java
-onConfigurationChanged(Configuration newConfig){
+private void adjustOrientation(){
   if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
     //横
   }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
@@ -38,8 +36,6 @@ onConfigurationChanged(Configuration newConfig){
   }
 }
 ```
--
--
 
 ## 生命周期执行情况
 
