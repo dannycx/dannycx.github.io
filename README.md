@@ -49,7 +49,7 @@ for (String o : set) {
    System.out.println(o);
 }
 ```
-- HashSet数据无序，唯一，key可为null，放入的对象必须实现hashCode（）放入对象以hashCode码作为标识
+- HashSet数据无序，唯一，key可为null，放入的对象必须实现hashCode（），因为放入的对象是以hashCode码作为标识
 - TreeSet是二叉树，有序，不允许存null值
 
 - Map适合存储键值对数据。
@@ -58,10 +58,6 @@ for (String o : set) {
 
 - 线程安全类：Vector，Hashtable，SynchronizedList（代替Vector），StringBuffer
 - 非线程安全类LinkedList，ArrayList，HashSet，HashMap，StringBuilder
-
-
-
-
 
 ## java类加载过程
 ###### Student student = new Student();
