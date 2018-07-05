@@ -54,3 +54,12 @@ private void adjustOrientation(){
   开启activity:onCreate-onStart-onResume,横竖屏切换:onPause-onSaveInstanceState(activity异常终止才调用)-onStop-onDestroy-onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
 ```
 
+
+## Activity间传递数据
+- Intent传递
+```markdown
+1. 传递基本类型数据putExtra(key,value);获取通过getXxxExtra(key)实现;
+2. 通过Bundle（对HashMap封装，本身实现Parcelable序列化）传递数据，先将数据存储到Bundle中，通过intent.putExtras(bundle)传递，获取通过intent.getExtras()得到bundle对象，然后调用getXxx(key)得到传递过来数据;
+3. 传递对象，类需实现Parcelable或Serializable接口，调用putExtra(key,object);通过getParcelableExtra(key)或getSerializableExtra(key);
+4. 提供了部分方法可以传递集合数据。
+```
