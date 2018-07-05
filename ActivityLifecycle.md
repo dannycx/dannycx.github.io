@@ -77,28 +77,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         }
     }
 }
+
+Intent intent=new Intent(this,Src.class);
+string value=adapter.getItem(position);
+intent.putExtra("key",value);
+setResult(result,intent);//结果码：标识从哪个activity返回数据
+finish();
 ```
-
-
--startActivityForResult(intent,requestCode);**请求码：标识请求来源**
-**需返回数据的activity将数据传回然后关闭**
-
--listView数据
--写个Adapter实现BaseAdapter
--定义数组String[] names={"张三丰","张无忌","杨逍","白眉鹰王","青翼蝠王","金毛狮王",""};
--getCount()
--getView()
--getItem()
--getItemId()
--listView.setAdapter();
--listView.setOnItemClickListener(new OnItemClickListener(){
--   public void onItemClick(Adapter<?> parent,View view,int position,int id){
--      Intent intent=new Intent(this,Src.class);
--      string value=adapter.getItem(position);
--      intent.putExtra("key",value);
--      setResult(resu,intent);结果码：标识从哪个activity返回数据
--      finish();
--    }
--});
-
--
