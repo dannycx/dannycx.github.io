@@ -16,8 +16,16 @@
 #### SynchronizedList
 - 继承自SynchronizedCollection，使用装饰着模式为List加了锁，从而使List同步安全，代替Vector和Stack。
 
-## java类加载过程: Student student = new Student();
-- 
+## java类加载过程
+###### Student student = new Student();
+- 先找到Student.class文件，并加载到内存
+- 执行类中static代码块
+- 堆内存中开辟空间分配内存地址
+- 堆内存中建立对象特有属性，并进行默认初始化
+- 对属性显示初始化
+- 对对象构造代码块初始化
+- 对对象进行与之对应的构造函数进行初始化
+- 将内存地址赋给栈内存中的student变量
 
 
 
