@@ -18,7 +18,7 @@
 
 ### 集合区别
 - List、Set继承自Collection接口，Map继承自
-- List有序，可重复，支持普通for循环遍历，增强for遍历，迭代器遍历
+- List有序，可重复，支持普通for循环遍历，增强for遍历，迭代器遍历,此处只提供迭代器遍历相关代码
 ```java
 Iterator<Object> it = list.iterator();
 while(it.hasNext()) {
