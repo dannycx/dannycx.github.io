@@ -1,6 +1,6 @@
 # Activity生命周期
 
-状态：激活状态（位于当前任务栈顶）、暂停状态（失去焦点，但仍可见）、停止状态(被另一个activity完全覆盖)
+###### 状态：激活状态（位于当前任务栈顶）、暂停状态（失去焦点，但仍可见）、停止状态(被另一个activity完全覆盖)
 ## onCreate()
 - 设置布局 控件初始化
 ## onStart()
@@ -56,6 +56,5 @@ onConfigurationChanged(Configuration newConfig){
   开启activity:onCreate-onStart-onResume,home:onPause-onStop,再打开:onRestart-onStart-onResume,后退键:onPause-onStop-onDestroy
 **情况六**
   开启activity:onCreate-onStart-onResume,横竖屏切换:onPause-onSaveInstanceState(activity异常终止才调用)-onStop-onDestroy-onCreate-onStart-onResume,后退键:onPause-onStop-onDestroy
-
-##屏幕旋转不重新创建:   待验证:清单文件,activity标签下-android:configChanges="orientation"
+```
 
