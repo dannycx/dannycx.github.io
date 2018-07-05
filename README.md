@@ -17,15 +17,15 @@
 - 继承自SynchronizedCollection，使用装饰着模式为List加了锁，从而使List同步安全，代替Vector和Stack。
 
 ### 集合区别
-- List、Set继承自Collection接口，Map继承自
-- List有序，可重复，支持普通for循环遍历，增强for遍历，迭代器遍历,此处只提供迭代器遍历相关代码
+- List、Set继承自Collection接口，Map本身是个顶层接口。
+- List有序，可重复，检索数据效率高，插入删除效率低，涉及多个元素位置变化。支持普通for循环遍历，增强for遍历，迭代器遍历,此处只提供迭代器遍历相关代码
 ```java
 Iterator<Object> it = list.iterator();
 while(it.hasNext()) {
   System.out.println((Object)it.next);
 }
 ```
-- Set无序，不可重复，重复会覆盖之前的，位置有HashCode决定，加入Set中的Object必须重写equal是（），可使用迭代器遍历和增强for遍历。
+- Set无序，不可重复，重复会覆盖之前的，位置有HashCode决定，加入Set中的Object必须重写equal是（），检索数据效率低，插入删除效率高，不涉及元素位置变化。可使用迭代器遍历和增强for遍历。
 ###### 迭代器
 ```java
 Set<String> set=new HashSet<>();
@@ -49,6 +49,19 @@ for (String o : set) {
    System.out.println(o);
 }
 ```
+- HashSet数据无序，唯一，key可为null，放入的对象必须实现hashCode（）放入对象以hashCode码作为标识
+- TreeSet是二叉树，有序，不允许存null值
+
+- Map适合存储键值对数据。
+- HashMap基于哈希表实现，散列表处理：开放定址法，链表法，HashMap使用链表法
+- TreeMap非线程安全，基于红黑树（平衡二叉树）实现
+
+- 线程安全类：Vector，Hashtable，SynchronizedList（代替Vector），StringBuffer
+- 非线程安全类LinkedList，ArrayList，HashSet，HashMap，StringBuilder
+
+
+
+
 
 ## java类加载过程
 ###### Student student = new Student();
