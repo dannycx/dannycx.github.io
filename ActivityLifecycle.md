@@ -63,3 +63,42 @@ private void adjustOrientation(){
 3. 传递对象，类需实现Parcelable或Serializable接口，调用putExtra(key,object);通过getParcelableExtra(key)或getSerializableExtra(key);
 4. 提供了部分方法可以传递集合数据。
 ```
+
+## Activity返回数据
+
+- 启动activity，调用startActivityForResult(),重写onActivityResult()方法，通过请求码和响应码判断，获取返回结果
+```java
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if(requestCode==?){
+        if(data!=null){
+            String name=data.getExtra("key")
+        }
+    }
+}
+```
+
+
+-startActivityForResult(intent,requestCode);**请求码：标识请求来源**
+**需返回数据的activity将数据传回然后关闭**
+
+-listView数据
+-写个Adapter实现BaseAdapter
+-定义数组String[] names={"张三丰","张无忌","杨逍","白眉鹰王","青翼蝠王","金毛狮王",""};
+-getCount()
+-getView()
+-getItem()
+-getItemId()
+-listView.setAdapter();
+-listView.setOnItemClickListener(new OnItemClickListener(){
+-   public void onItemClick(Adapter<?> parent,View view,int position,int id){
+-      Intent intent=new Intent(this,Src.class);
+-      string value=adapter.getItem(position);
+-      intent.putExtra("key",value);
+-      setResult(resu,intent);结果码：标识从哪个activity返回数据
+-      finish();
+-    }
+-});
+
+-
