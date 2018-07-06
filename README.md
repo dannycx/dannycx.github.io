@@ -81,3 +81,5 @@ for (String o : set) {
 [github代码上传](https://github.com/dannycx/knowledge/blob/master/github.md)
 
 [View绘制](https://github.com/dannycx/knowledge/blob/master/ViewDrawingProcess.md)
+
+[Android特性](https://github.com/dannycx/knowledge/edit/master/android_features.md)
