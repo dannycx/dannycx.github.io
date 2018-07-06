@@ -83,3 +83,5 @@ for (String o : set) {
 [View绘制](https://github.com/dannycx/knowledge/blob/master/ViewDrawingProcess.md)
 
 [Android特性](https://github.com/dannycx/knowledge/edit/master/android_features.md)
+
+[View事件分发](https://github.com/dannycx/knowledge/blob/master/view_event.md)
