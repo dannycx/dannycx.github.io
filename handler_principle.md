@@ -25,7 +25,7 @@
        （2）Looper.loop方法，就是一个死循环，不断地从MessageQueue取消息，如果有消息就处理消息，没有消息就阻塞。
 - MessageQueue，一个消息队列，添加消息，处理消息
 - handler内部与Looper关联，handler->Looper->MessageQueue,handler发送消息就是向MessageQueue队列发送消息。
-- 总结：handler负责发送消息，Looper负责接收handler发送的消息，并把消息回传给handler自己。MessageQueue存储消息的容器。
+###### 总结：handler负责发送消息，Looper负责接收handler发送的消息，并把消息回传给handler自己。MessageQueue存储消息的容器。
  
 ## HandlerThread的作用是什么
 - HandlerThread thread=new HandlerThread("handler thread");自动包含等待机制，等Looper创建好了，才创建Handler，避免出现空指针异常。
@@ -157,7 +157,7 @@ if (p == null || when == 0 || when < p.when) {
 - 开启一个死循环，不断的判断MessageQueue中的消息是否为空，如果为空则直接return。
 - 不断执行queue.next()方法，从消息队列中取消息，取到就调用handler的dispatchMessage(msg)，该方法中先判断消息中是否有Runnable对象，有的话直接执行Runnable的run()方法，在判断初始化Handler时是否传递Runnable对象，传的化直接执行Runnable的run()方法
 - 如果没传的话，会直接调用我们创建handler时重写的handlerMessage方法。由于Handler对象是在主线程中创建的，所以handler的handlerMessage方法的执行也会在主线程中。
-`java
+```java
 public void dispatchMessage(Message msg) {
     if (msg.callback != null) {
         handleCallback(msg);
