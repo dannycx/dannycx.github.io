@@ -115,10 +115,10 @@ Handler的使用
 ```
 
 ## Handler
-- 在App初始化的时候会执行ActivityThread的main方法,该方法中调用Looper.prepare();Looper.loop();
+- 在App初始化的时候会执行ActivityThread的main方法,该方法中调用Looper.prepareMainLooper();Looper.loop();
 - 每个线程只能创建一个Looper
-### Looper.prepare()
-- 方法初始化了一个Looper对象并关联在一个MessageQueue对象，并且一个线程中只有一个Looper对象，只有一个MessageQueue对象。
+### Looper.prepareMainLooper()中调用prepare(false)
+- prepare()方法初始化了一个Looper对象并关联在一个MessageQueue对象，并且一个线程中只有一个Looper对象，只有一个MessageQueue对象。
 - Handler的构造方法则在Handler内部维护了当前线程的Looper对象
 ###### 消息队列(采用单链表的数据结构来存储消息列表。）
 - 使用Handler发消息，会将该Handler对象也存入消息中，跟踪代码发现最后会调用MessageQueue的enqueueMessage(Message msg, long when)方法，在该方法中处理消息，
