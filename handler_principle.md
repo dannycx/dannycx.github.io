@@ -1,7 +1,5 @@
 # Handler原理
 
-# Handler
-
 ## handler是什么
 -handler是更新UI界面的机制，也是消息处理的机制,我们可以发送消息，也可以处理消息
  
@@ -122,4 +120,91 @@ Handler的使用
     }
 
 new WorkThread().start();
+```
+
+
+## Handler
+- 在App初始化的时候会执行ActivityThread的main方法,该方法中调用Looper.prepare();Looper.loop();
+- 每个线程只能创建一个Looper
+### Looper.prepare()
+- 方法初始化了一个Looper对象并关联在一个MessageQueue对象，并且一个线程中只有一个Looper对象，只有一个MessageQueue对象。
+- Handler的构造方法则在Handler内部维护了当前线程的Looper对象
+###### 消息队列(采用单链表的数据结构来存储消息列表。）
+- 使用Handler发消息，会将该Handler对象也存入消息中，跟踪代码发现最后会调用MessageQueue的enqueueMessage(Message msg, long when)方法，在该方法中处理消息，
+- 若当前消息队列中没有消息，消息触发时间等于0或者消息触发时间小于消息队列中的第一条消息触发时间，则将该消息作为第一条消息，将其指针指向之前链表中的第一条消息。
+- 若不满足上述条件就会循环遍历消息队列，将新的消息插入到消息队列中的指定位置，源码如下：
+```java
+msg.when = when;
+Message p = mMessages;
+boolean needWake;
+if (p == null || when == 0 || when < p.when) {
+       // New head, wake up the event queue if blocked.
+       msg.next = p;
+       mMessages = msg;
+       needWake = mBlocked;
+} else {
+       // Inserted within the middle of the queue.  Usually we don't have to wake
+       // up the event queue unless there is a barrier at the head of the queue
+       // and the message is the earliest asynchronous message in the queue.
+       needWake = mBlocked && p.target == null && msg.isAsynchronous();
+       Message prev;
+       for (;;) {
+            prev = p;
+            p = p.next;
+            if (p == null || when < p.when) {
+                break;
+            }
+            if (needWake && p.isAsynchronous()) {
+                needWake = false;
+            }
+        }
+        msg.next = p; // invariant: p == prev.next
+        prev.next = msg;
+}
+```
+### Looper.Loop()方法
+- 开启一个死循环，不断的判断MessageQueue中的消息是否为空，如果为空则直接return。
+- 不断执行queue.next()方法，从消息队列中取消息，取到就调用handler的dispatchMessage(msg)，该方法中先判断初始化Handler时是否传递Runnable接口，传的化直接执行Runnable的run()方法
+- 如果没传的话，会直接调用我们创建handler时重写的handlerMessage方法。由于Handler对象是在主线程中创建的，所以handler的handlerMessage方法的执行也会在主线程中。
+`java
+public void dispatchMessage(Message msg) {
+    if (msg.callback != null) {
+        handleCallback(msg);
+    } else {
+        if (mCallback != null) {
+            if (mCallback.handleMessage(msg)) {
+               return;
+            }
+        }
+        handleMessage(msg);
+    }
+}
+```
+
+- 子线程中定义Handler，则标准的写法为：
+```java
+// 初始化该线程Looper，MessageQueue，执行且只能执行一次
+Looper.prepare();
+// 初始化Handler对象，内部关联Looper对象
+Handler mHandler = new Handler() {
+     @Override
+     public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+     }
+};
+// 启动消息队列出栈死循环
+Looper.loop();
+```
+- 管道机制：内部维护
+```java
+Looper.prepare();
+Handler mHandler = new Handler() {
+   @Override
+   public void handleMessage(Message msg) {
+      if (msg.what == 101) {
+         Log.i(TAG, "在子线程中定义Handler，并接收到消息。。。");
+       }
+   }
+};
+Looper.loop();
 ```
