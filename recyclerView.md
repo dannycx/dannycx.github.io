@@ -2,7 +2,7 @@
 
 ## 简单实用
 ### 1.添加依赖
-- compile 'com.android.support:recyclerview-v7:26.+'
+- implementation 'com.android.support:recyclerview-v7:26.+'
 
 ### 2.布局使用RecyclerView 
 ```java
@@ -61,8 +61,8 @@ private class Adapter extends  RecyclerView.Adapter<MyHolder>{
     privqte void initRecyclerView(){
         //获取RecyclerView控件
         RecyclerView rv = findViewById(R.id.recycler);
-        //设置线性管理器，item可水平或垂直
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        //设置线性管理器，item可水平或垂直LinearLayout.HORIZONTAL, LinearLayout.VERTICAL
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, true));
         //设置Adapter
         rv.setAdapter(new MyAdapter(initList()));
     }
