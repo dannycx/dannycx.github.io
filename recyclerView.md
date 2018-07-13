@@ -80,7 +80,7 @@ private class Adapter extends  RecyclerView.Adapter<MyHolder>{
 
 ## 进阶
 ### RecyclerView通用适配器的封装
-- 优点：数量动态 类型不限 Map<Integer，View>    
+- 优点：数量动态 类型不限 SparseArray<Integer，View>    
 - 作用：封装了Adapter编写的冗余代码，提供简洁的基类
 
 ### BaseHolder封装
@@ -199,5 +199,5 @@ public class MyAdapter extends BaseAdapter<String> {
 }
 ```
 
-### 待续
+### 待续。。。
 
