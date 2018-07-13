@@ -1,4 +1,5 @@
 # RecyclerView使用
+###### 和ListView相比RecyclerView内部实现了复用，我们不需处理，ListView缓存机制RecyclerBin，适用于轻量级的List的展示
 
 ## 简单实用
 ### 1.添加依赖
@@ -198,5 +199,5 @@ public class MyAdapter extends BaseAdapter<String> {
 }
 ```
 
-### 
+### 待续
 
