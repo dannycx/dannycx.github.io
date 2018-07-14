@@ -85,3 +85,6 @@ for (String o : set) {
 [Android特性](https://github.com/dannycx/knowledge/edit/master/android_features.md)
 
 [View事件分发](https://github.com/dannycx/knowledge/blob/master/view_event.md)
+
+[RecyclerView使用](https://github.com/dannycx/knowledge/blob/master/recyclerView.md)
+
