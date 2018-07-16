@@ -10,7 +10,8 @@
 </selector>
 ```
 
-## 水波纹效果，Android5.0之后效果，在drawable下新建ripple.xml，新标签ripple支持水波纹效果,直接设置给Button的背景即可看到效果
+## 水波纹效果
+- Android5.0之后效果，在drawable下新建ripple.xml，新标签ripple支持水波纹效果,直接设置给Button的背景即可看到效果
 ```java
 normal.xml
 
