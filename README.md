@@ -76,15 +76,20 @@ for (String o : set) {
 
 [Link](https://github.com/dannycx/dcxing111.github.io/blob/master/activity%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE)
 
-[Activity生命周期](https://github.com/dannycx/knowledge/blob/master/ActivityLifecycle.md)
+[Activity生命周期](https://github.com/dannycx/knowledge/blob/master/skill/ActivityLifecycle.md)
 
-[github代码上传](https://github.com/dannycx/knowledge/blob/master/github.md)
+[github代码上传](https://github.com/dannycx/knowledge/blob/master/skill/github.md)
 
-[View绘制](https://github.com/dannycx/knowledge/blob/master/ViewDrawingProcess.md)
+[View绘制](https://github.com/dannycx/knowledge/blob/master/skill/ViewDrawingProcess.md)
 
-[Android特性](https://github.com/dannycx/knowledge/edit/master/android_features.md)
+[Android特性](https://github.com/dannycx/knowledge/blob/master/skill/android_features.md)
 
-[View事件分发](https://github.com/dannycx/knowledge/blob/master/view_event.md)
+[View事件分发](https://github.com/dannycx/knowledge/blob/master/skill/view_event.md)
 
-[RecyclerView使用](https://github.com/dannycx/knowledge/blob/master/recyclerView.md)
+[RecyclerView使用](https://github.com/dannycx/knowledge/blob/master/skill/recyclerView.md)
+
+[Android开机动画](https://github.com/dannycx/knowledge/blob/master/skill/android_start_animation.md)
+
+[App构建](https://github.com/dannycx/knowledge/blob/master/skill/app_build.md)
+
 
