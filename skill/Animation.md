@@ -1,4 +1,4 @@
-ObjectAnimator# Android 动画
+# Android 动画
 - 帧动画：一张张图片组成，类似放电影效果，需要大量图片资源
 - 补间动画（不改变控件实际位置）：旋转动画(RotateAnimation)、透明动画(AlphaAnimation)、缩放动画(ScaleAnimation)、平移动画(TranslateAnimation)
 - 属性动画（改变控件实际位置）：ValueAnimator、ObjectAnimator
@@ -68,7 +68,7 @@ xml文件 scale.xml
     android:pivotY="50%"
     android:duration="3000"/>
 view.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.scale));
-``
+```
 
 #### 平移动画
 ```java
