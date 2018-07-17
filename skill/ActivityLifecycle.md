@@ -86,7 +86,10 @@ finish();
 #### performLaunchActivity（）任务
 - 从ActivityClientRecord中获取待启动activity的组件信息
 - 通过Instrumentation的newActivity()使用类加载器创建activity对象
-- 通过LoadedApk的makeApplication()尝试创建application对象（也是通过类加载器创建的），若不为null直接返回，一个应用中只能存在一个Application对象，创建后会通过Instrumentation的callApplicationOnCreate()来实现Application的onCreate（）调用。
+- 通过LoadedApk的makeApplication()尝试创建application对象（也是通过类加载器创建的），若不为null直接返回，一个应用中只能存在一个Application对象，创建后会通过Instrumentation的callApplicationOnCreate()来实现Application的onCreate（）调用
+- 创建ContextImpl对象，并通过activity的onAttach（）完成重要数据的初始化，ContextImpl通过activity的onAttach（）和activity建立关系，onAttach（）中还完成了window的创建，并建立自己和window关联，这样当window接收外部输入事件后，就可以将事件传递给activity
+- 调用activity的onCreate（）：Instrumentation.callActivityOnCreate.onCreate()执行所以activity启动成功
+
 
 
 
