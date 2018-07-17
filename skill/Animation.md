@@ -1,10 +1,24 @@
 # Android 动画
-- 帧动画：一张张图片组成，类似放电影效果，需要大量图片资源
+- 帧动画（ＡｎｉｍａｔｉｏｎＤｒａｗａｂｌｅ）：一张张图片组成，类似放电影效果，需要大量图片资源
 - 补间动画（不改变控件实际位置）：旋转动画(RotateAnimation)、透明动画(AlphaAnimation)、缩放动画(ScaleAnimation)、平移动画(TranslateAnimation)
 - 属性动画（改变控件实际位置）：ValueAnimator、ObjectAnimator
 
 ## 帧动画
-
+###### 容易引起OOM，避免使用过多大尺寸图片
+```java
+帧布局文件(drawable下)-frame.xml
+<animation-list android:oneshot="true">
+    <item android:drawable="@drawable/theme_translation_turn_day_01" android:duration="110"/>
+    <item android:drawable="@drawable/theme_translation_turn_day_02" android:duration="110"/>
+    <item android:drawable="@drawable/theme_translation_turn_day_03" android:duration="110"/>
+    <item android:drawable="@drawable/theme_translation_turn_day_04" android:duration="110"/>
+    <item android:drawable="@drawable/theme_translation_turn_day_05" android:duration="110"/>
+    <item android:drawable="@drawable/theme_translation_turn_day_06" android:duration="110"/>
+</animation-list>
+view.setBackgroundResource(R.drawable.frame);
+AnimationDrawable ad = (AnimationDrawable) view.getBackground();
+ad.start();
+```
 
 ## 补间动画
 
@@ -151,6 +165,16 @@ translate.setAnimationListener(new Animation.AnimationListener() {
 });
 ```
 
+####　自定义补间动画
+- 继承自Animation，重写ｉｎｉｔialize()和applyTransformation（）
+- ｉｎｉｔialize()初始化工作
+- applyTransformation（）矩阵变换工作（Camera简化矩阵变换过程）
+
 
 
 ## 属性动画
+###### API11出现，ValueAnimator, ObjectAnimator, AnimatorSet,效果是在一个时间间隔内完成对象从一个属性值到另一个属性值的改变。可使用nineoldandroids兼容之前版本
+
+
+
+
