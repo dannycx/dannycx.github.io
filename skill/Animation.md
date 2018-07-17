@@ -177,4 +177,74 @@ translate.setAnimationListener(new Animation.AnimationListener() {
 
 
 
+## 布局动画
 
+#### 该布局下的子view，上个显示后下个显示
+```java
+LinearLayout root = View.inflate(this, R.layout.root, null);
+ScaleAnimation scale = new ScaleAnimation(0,1,0,1);
+scale.setDuration(3000);
+LayoutAnimationController lac = new LayoutAnimationController(scale,0.5f);
+lac.setOrder(LayoutAnimationController.ORDER_REVERSE);//子view顺序，从下往上
+root.setLayoutAnimation(lac);
+```
+
+## 布局内容动画
+###### 添加并移除控件
+```java
+private void addBtn(){
+    Button btn = new Button(this);
+    btn.setText("add");
+    root.addView(btn);
+    root.setLayoutTransition(Transition);
+    btn.setOnClickListener(new OnClistener(){
+       @Override
+       public void onClick(View view){
+            root.removeView(view);
+       }
+    });
+}
+```
+
+## 列表添加布局动画
+```java
+private ListView mListView;
+private ArrayAdapter<String> mAdapter;
+
+mAdapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,new String[]{"123","456"});
+mListView.setAdapter(mAdapter);
+
+ScaleAnimation scale = new ScaleAnimation(0,1,0,1);
+scale.setDuration(3000);
+LayoutAnimationController lac = new LayoutAnimationController(scale,0.5f);
+mListView.setLayoutAnimation(lac);
+```
+
+## 资源文件配置布局动画
+```java
+动画scale.xml-anim
+<?xml version="1.0" encoding="utf-8"?>
+<scale
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXScale="0"
+    android:toXScale="1"
+    android:fromYScale="0"
+    android:toYScale="1"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:duration="3000"/>
+    
+控制LayoutAnimationController
+list_anim.xml-anim
+<?xml version="1.0" encoding="utf-8"?>
+<layoutAnimation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/scale"
+    android:delay="0.5"/>
+    
+<ListView 
+    android:id="@+id/list_view"
+    android:width="match_parent"
+    android:height="match_parent"
+    android:layoutAnimation="@anim/list_anim"/>
+```
