@@ -8,6 +8,8 @@
 
 ## 补间动画
 
+![](https://github.com/dannycx/knowledge/blob/master/image/view_animation.png)  
+
 #### 透明动画
 ```java
 java代码
