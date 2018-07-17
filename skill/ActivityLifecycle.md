@@ -1,27 +1,15 @@
-# Activity生命周期
-
+# Activity
 ###### 状态：激活状态（位于当前任务栈顶）、暂停状态（失去焦点，但仍可见）、停止状态(被另一个activity完全覆盖)
-## onCreate()
-- 设置布局 控件初始化
-## onStart()
-- 注册一些监听 内容观察者,后台,可见,不可获得焦点
-## onReStart()
-## onResume()
-- 再次对数据进行查询,前台,可见,可获得焦点
-
-## onPause()
-- 数据临时保存,后台,开启新的activity,会先执行完该方法,才去执行onResume
-
-## onStop()
-- 取消监听,不可见
-
-## onDestroy()
-- 对资源进行回收 cursor关闭cursor.close();   bitmap进行回收 bitmap.recycle();
-## onSaveInstanceState(Bundle outState)
-- 内存不足时调用，保存数据  outState.putXxx(key,value)
-## onRestoreInstansceState(Bundle saveInstanceState) 
-- 恢复数据  saveInstanceState.getXxx(key)
-
+### 生命周期
+- onCreate()设置布局 控件初始化
+- onStart()注册一些监听 内容观察者,后台,可见,不可获得焦点
+- onReStart() 
+- onResume()再次对数据进行查询,前台,可见,可获得焦点 
+- onPause()数据临时保存,后台,开启新的activity,会先执行完该方法,才去执行onResume
+- onStop()取消监听,不可见
+- onDestroy()对资源进行回收 cursor关闭cursor.close();   bitmap进行回收 bitmap.recycle();
+- onSaveInstanceState(Bundle outState)内存不足时调用，保存数据  outState.putXxx(key,value)
+- onRestoreInstansceState(Bundle saveInstanceState) 恢复数据  saveInstanceState.getXxx(key)
 
 ## Activity小知识
 - 作为dialog的activity在清单文件配置theme：@android：style/
@@ -84,3 +72,23 @@ intent.putExtra("key",value);
 setResult(result,intent);//结果码：标识从哪个activity返回数据
 finish();
 ```
+## 启动过程
+###### 启动方法最终会调用startActivityForResult（），接着调用Instrumentation的execStartActivity（），最终一个activity的启动是通过调用ActivityManagerNative.getDefault().startActivity()完成的。
+- AMS(ActivityManagerService)继承自ActivityManagerNative，ActivityManagerNative继承自Binder并实现了IActivityManager这个Binder接口，因此AMS也是一个Binder，它是IActivityManager的具体实现。ActivityManagerNative.getDefault()就是AMS。
+- Instrumentation的execStartActivity（）中调用checkStartActivityResult(int result, Object intent)检查启动的Activity，常见的没有在清单文件配置这个activity异常就是在该方法中抛出的。
+- activity的启动过程中ActivityStackSupervisor和ActivityStack之间传递顺序如下图
+
+
+- IApplicationThread接口继承自IInterface接口是一个Binder对象，内部声明大量和activity以及service启动停止相关功能。
+- 最终实现IApplicationThread接口的是ApplicationThread，该类是ActivityThread的内部类，最终activity的启动又回到了ApplicationThread中，通过scheduleLaunchActivity()启动activity
+- scheduleLaunchActivity()启动activity是通过Handler（H）发消息方式启动的
+- handleMessage（）根据消息类型处理,若为LAUNCH_ACTIVITY，调用handleLaunchActivity（），从该方法中可以看到Activity对象的创建是通过performLaunchActivity（）完成的。并且ActivityThread通过handleResumeActivity（）来调用被启动activity的onResume()。
+#### performLaunchActivity（）任务
+- 从ActivityClientRecord中获取待启动activity的组件信息
+- 通过Instrumentation的newActivity()使用类加载器创建activity对象
+- 通过LoadedApk的makeApplication()尝试创建application对象（也是通过类加载器创建的），若不为null直接返回，一个应用中只能存在一个Application对象，创建后会通过Instrumentation的callApplicationOnCreate()来实现Application的onCreate（）调用。
+
+
+
+
+
