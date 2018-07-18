@@ -30,7 +30,7 @@
 - FixedThreadPool：固定大小，使用无界的LinkedBlockingQueue，适用于稳定、固定的正规并发线程，多用于服务器端
 - CachedThreadPool：线程数不是一直增加，先判断有没有空闲的，有就使用，没有就创建，适用于执行周期短任务，使用SynchronousQueue作为阻塞队列
 - SingleThreadExecutor：线程池中只有一个线程，适用于有明确执行顺序不影响主线程的任务，任务按顺序执行，使用无界的LinkedBlockingQueue
-- 
+- ScheduledThreadPool:是用于执行定时任务和具有固定周期的重复任务
 
 ### 参数
 #### corePoolSize:线程池核心线程数量
