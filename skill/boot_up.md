@@ -12,10 +12,7 @@
          <action android:name="android.intent.action.BOOT_COMPLETED"/>
      </intent-filter>
 </receiver>
-```
 
-#### 广播
-```java
 @Override
 public void onReceive(Context context, Intent intent) {
     Log.d(TAG, "onReceive: ");
@@ -46,4 +43,10 @@ private void startUi（）{
     activity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(activity);
 }
+```
+
+## 测试开机自启
+- 连接设备后，可通过如下命令实现
+```java
+adb shell am broadcast -a android.intent.action.BOOT_COMPLETED
 ```
