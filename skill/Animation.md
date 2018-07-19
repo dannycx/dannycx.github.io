@@ -2,6 +2,8 @@
 - 帧动画（ＡｎｉｍａｔｉｏｎＤｒａｗａｂｌｅ）：一张张图片组成，类似放电影效果，需要大量图片资源
 - 补间动画（不改变控件实际位置）：旋转动画(RotateAnimation)、透明动画(AlphaAnimation)、缩放动画(ScaleAnimation)、平移动画(TranslateAnimation)
 - 属性动画（改变控件实际位置）：ValueAnimator、ObjectAnimator
+- 布局动画（）：
+- 共享元素（场景动画T）：
 
 ## 帧动画
 ###### 容易引起OOM，避免使用过多大尺寸图片
