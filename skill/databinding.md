@@ -82,6 +82,8 @@ public class Student {
 //        variableId不能为0, 否则会出现数据无法显示现象
 //        binding.setVariable(0, new Student("1111100000","张三"));
 //        binding.setVariable();// 有多个对象数据时,不要使用该方法,会抛出类型转换异常
+//        <variable name="student" type="com.danny.databinding.model.Student"/>
+//        方法名setStudent来源于 name="student"
         binding.setStudent(new Student("1111100000","张三"));
         binding.setEvent(new Event(this));
         binding.setTask(new Task(this));
