@@ -75,7 +75,7 @@ public class Student {
     </LinearLayout>
 </layout>
 ```
-###### Activity代码实现(此处setStudent/setEvent/setTask方法会显示红色,不用管编译运行没有问题)
+###### Activity代码实现(此处setStudent/setEvent/setTask方法会显示红色,不用管编译运行没有问题)(重启Android Studio可避免该问题)
 ```java
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 //        所有的 set 方法也是根据布局中 variable 名称生成的
@@ -88,3 +88,5 @@ public class Student {
         binding.setEvent(new Event(this));
         binding.setTask(new Task(this));
 ```
+
+[demo地址](https://github.com/dannycx/knowledge/blob/master/skill/app_build.md)
