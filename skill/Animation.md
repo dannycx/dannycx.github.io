@@ -177,6 +177,8 @@ translate.setAnimationListener(new Animation.AnimationListener() {
 
 ## 属性动画
 ###### API11出现，ValueAnimator, ObjectAnimator, AnimatorSet,效果是在一个时间间隔内完成对象从一个属性值到另一个属性值的改变。可使用nineoldandroids兼容之前版本
+###### ofObject来做动画的时候，都必须调用setEvaluator显示设置Evaluator，因为系统根本是无法知道，你动画的中间值Object真正是什么类型的。
+
 
 #### ValueAnimator
 ###### ValueAnimator对指定值区间做动画运算，我们通过对运算过程做监听来自己操作控件。
@@ -187,6 +189,26 @@ translate.setAnimationListener(new Animation.AnimationListener() {
 - 创建实例
 - 添加监听
 
+#### ObjectAnimator
+- 要使用ObjectAnimator来构造对画，要操作的控件中，必须存在对应的属性的set方法
+- setter 方法的命名必须以骆驼拼写法命名，即set后每个单词首字母大写，其余字母小写，即类似于setPropertyName所对应的属性为propertyName 
+- 当且仅当动画的只有一个过渡值时，系统才会调用对应属性的get函数来得到动画的初始值。
+
+#### PropertyValuesHolder
+```markdown
+其中保存了动画过程中所需要操作的属性和对应的值。我们通过ofFloat(Object target, String propertyName, float… values)构造的动画，ofFloat()的内部实现其实就是将传进来的参数封装成PropertyValuesHolder实例来保存动画状态。在封装成PropertyValuesHolder实例以后，后期的各种操作也是以PropertyValuesHolder为主的。 
+```
+
+#### 插值器
+###### 可以通过重写加速器改变数值进度来改变数值位置
+
+#### 计数器
+######　转换器，他能把小数进度转换成对应的数值位置.可以通过改变Evaluator中进度所对应的数值来改变数值位置。
+- ofInt(0,400)表示指定动画的数字区间，是从0运动到400；
+- 加速器：上面我们讲了，在动画开始后，通过加速器会返回当前动画进度所对应的数字进度，但这个数字进度是百分制的，以小数表示，如0.2
+- Evaluator:我们知道我们通过监听器拿到的是当前动画所对应的具体数值，而不是百分制的进度。那么就必须有一个地方会根据当前的数字进度，将其转化为对应的数值，这个地方就是Evaluator；Evaluator就是将从加速器返回的数字进度转成对应的数字值。所以上部分中，我们讲到的公式：
+- 监听器：我们通过在AnimatorUpdateListener监听器使用animation.getAnimatedValue()函数拿到Evaluator中返回的数字值。
+讲了这么多，Evaluator其实就是一个转换器，他能把小数进度转换成对应的数值位置
 
 
 
