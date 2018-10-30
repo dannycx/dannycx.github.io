@@ -1,16 +1,13 @@
-# Handler原理
+
+# android Handler
+###### 注意（移除handler的所有callbacks和messages，避免内存溢出,此方法在onDestroy()中调用handler.removeCallbacksAndMessages(null);）
 
 ## handler是什么
 - 是消息处理的机制,我们可以发送消息，也可以处理消息
  
-## 为什么要有Handler
+## Handler作用
 - Android在设计的时候，封装了一套消息创建、传递、处理机制，如果不遵循这样的机制就没办法更新UI信息，就会抛出异常。
- 
-## handler怎么用
-- post(Runnable);
-- postDelayed(Runnable ,long);
-- sentMessage
-- sentMessageDelayed
+
  
 ## Android为什么要设置只能通过Handler机制更新UI
 - 最根本的问题解决多线程并发的问题；
@@ -27,7 +24,7 @@
 - handler内部与Looper关联，handler->Looper->MessageQueue,handler发送消息就是向MessageQueue队列发送消息。
 ###### 总结：handler负责发送消息，Looper负责接收handler发送的消息，并把消息回传给handler自己。MessageQueue存储消息的容器。
  
-## HandlerThread的作用是什么
+## HandlerThread的作用
 - HandlerThread thread=new HandlerThread("handler thread");自动包含等待机制，等Looper创建好了，才创建Handler，避免出现空指针异常。
  
 ## 主线程
@@ -35,10 +32,10 @@
 - threadLocal保存线程的变量信息，方法包括：set，get,设置获取Looper对象
  
 ## Android更新UI的方式
-- runOnUIThread
-- handler post
-- handler sendMessage
-- view post
+- handle.post(Runnable);
+- activity.runOnUiThread(Runnable);
+- handle.sendMessage(Message);
+- view.post();
  
 ## 非UI线程真的不能更新UI吗
 - 不一定，之所以子线程不能更新界面，是因为Android在线程的方法里面采用checkThread进行判断是否是主线程，而这个方法是在ViewRootImpl中的，
@@ -54,9 +51,14 @@
 - 然后通过调用sendMessage方法进行通知子线程。同样，子线程里面也可以调用sendMessage方法进行通知主线程。
 - 这样做的好处比如有些图片的加载啊，网络的访问啊可能会比较耗时，所以放到子线程里面做是比较合适的。
 
-Handler的使用
-方式一： post(Runnable)
+## Handler的使用
+- post(Runnable);
+- postDelayed(Runnable ,long);
+- sentMessage
+- sentMessageDelayed
 
+#### 方式一： post(Runnable)
+```java
     new Thread(new Runnable() {
     @Override
     public void run() {
@@ -75,8 +77,9 @@ Handler的使用
 
     }
     }).start();
+```
 
-方式二： sendMessage(Message)
+#### 方式二： sendMessage(Message)
 ```java
     private Handler handler = new Handler(){
 
@@ -114,9 +117,8 @@ Handler的使用
     new WorkThread().start();
 ```
 
-## Handler
-- 在App初始化的时候会执行ActivityThread的main方法,该方法中调用Looper.prepareMainLooper();Looper.loop();
-- 每个线程只能创建一个Looper
+###### 在App初始化的时候会执行ActivityThread的main方法,该方法中调用Looper.prepareMainLooper();Looper.loop();每个线程只能创建一个Looper
+
 ### Looper.prepareMainLooper()中调用prepare(false)
 - prepare()方法初始化了一个Looper对象并关联在一个MessageQueue对象，并且一个线程中只有一个Looper对象，只有一个MessageQueue对象。
 - Handler的构造方法则在Handler内部维护了当前线程的Looper对象
